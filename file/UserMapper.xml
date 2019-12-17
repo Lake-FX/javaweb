@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--所有可能考到的数据库操作都在这，根据需求选择，注意表名，字段名，以及路径包名-->
+<!--该文件注意所有的字段信息，如：username，password请根据自己建的表的字段更改-->
+<mapper namespace="com.qimo.mapper.UserMapper"> <!--此处记得按要求修改路径-->
+    <!--查询所有信息-->
+    <select id="selectAllUser" resultType="com.qimo.entrity.User"><!--注意此处User的包路径，下同-->
+        <!--此处users为表名，记得修改-->
+        select * from users
+    </select>
+
+    <!--根据id查询用户信息-->
+    <select id="selectUserById" parameterType="int" resultType="com.qimo.entrity.User">
+        select * from users where id = #{id}
+    </select>
+
+    <!--根据用户名和密码查询信息，用于登录验证-->
+    <select id="selectUser" parameterType="com.qimo.entrity.User" resultType="com.qimo.entrity.User">
+        select * from  users where username=#{username} and password=#{password}
+    </select>
+
+    <!--添加数据，用于用户注册，或者图书管理中添加书籍等，亦或者用户管理系统中添加用户-->
+    <insert id="insertUser" parameterType="com.qimo.entrity.User">
+        insert into users(username,password,birthday) values (#{username},#{password},#{birthday})
+    </insert>
+
+    <!--更新数据库，用于修改用户信息-->
+    <update id="updateUserById" parameterType="com.qimo.entrity.User">
+        update users set username=#{username},password=#{password},birthday=#{birthday} where id = #{id}
+    </update>
+
+    <!--删除数据-->
+    <delete id="deteleUser" parameterType="int">
+        delete from users where id=#{id}
+    </delete>
+</mapper>
